@@ -35,6 +35,8 @@ public:
 
 	int AddMark(Mark);
 	Node<Mark>* GetMarkHead();
+	int GetSize();
+	void ClearList();
 
 	template <typename S>
 	int DeleteMarkBase(S cmp, bool clearAll)

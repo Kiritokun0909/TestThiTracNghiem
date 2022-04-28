@@ -44,6 +44,17 @@ Node<Mark>* ListMark::GetMarkHead()
     return listMark.GetHead();
 }
 
+int ListMark::GetSize()
+{
+    if (listMark.GetHead() == nullptr) return 0;
+    return listMark.getSize();
+}
+
+void ListMark::ClearList()
+{
+    listMark.ClearList();
+}
+
 void ListMark::SortListStudent(bool(*cmp)(Mark, Mark))
 {
     listMark.Sort(cmp);

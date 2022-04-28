@@ -26,7 +26,7 @@ string Student::getPassword() const
     return password;
 }
 
-ListMark* Student::getList() const
+ListMark* Student::getListMark() const
 {
     return listMark;
 }
@@ -56,13 +56,13 @@ void Student::setPassword(string _password)
     this->password = _password;
 }
 
-void Student::setList(ListMark* other) 
+void Student::setListMark(ListMark* other) 
 {
     this->listMark = other;
 }
 
 
-Student::Student() : idStudent(""), lastName(""), firstName(""), gender('M'), password(""), listMark(nullptr) {}
+Student::Student() : idStudent(""), lastName(""), firstName(""), gender('M'), password(""), listMark(new ListMark()) {}
 
 Student::Student(string _idStudent, string _lastName, string _firstName, char _gender, string _password)
 {
@@ -71,7 +71,7 @@ Student::Student(string _idStudent, string _lastName, string _firstName, char _g
     firstName = _firstName;
     gender = _gender;
     password = _password;
-    listMark = nullptr;
+    listMark = new ListMark();
 }
 
 Student::~Student() {};
@@ -89,6 +89,17 @@ int ListStudent::AddStudent(Student _data)
 Node<Student>* ListStudent::GetStudentHead()
 {
     return listStudent.GetHead();
+}
+
+int ListStudent::GetSize()
+{
+    if (listStudent.GetHead() == nullptr) return 0;
+    return listStudent.getSize();
+}
+
+void ListStudent::ClearList()
+{
+    listStudent.ClearList();
 }
 
 void ListStudent::SortListStudent(bool (*cmp)(Student, Student))

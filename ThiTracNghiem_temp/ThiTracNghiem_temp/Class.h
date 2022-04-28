@@ -10,7 +10,7 @@ class Class
 public:
 	//Constructor
 	Class() { id = "", name = "", listStudent = nullptr; }
-	~Class() { }
+	~Class() {}
 
 	//Setter
 	void setAll(string _id, string _name);
@@ -39,7 +39,7 @@ public:
 	ListClass() { }
 	~ListClass() { }
 
-	int GetSize() const;
+	int GetSize() const { return size; }
 	Class* GetNode(int index);
 
 	bool SearchByID(int, string);
@@ -47,6 +47,6 @@ public:
 	Class* SearchClass(string str, ListClass* listClass, bool(ListClass::* cmp)(int, string));
 
 	int StringCompare(const string& str1, const string& str2);
-	int AddClass(Class new_class);	//Them theo trinh tu
+	int AddClass(Class new_class);	//Them theo trinh tu id
 	int DeleteClass(int index);	//Xoa o vi tri
 };

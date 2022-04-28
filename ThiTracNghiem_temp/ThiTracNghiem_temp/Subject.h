@@ -9,7 +9,7 @@ class Subject
 {
 public:
 	//Constructor & Destructor
-	Subject() { };
+	Subject() { id = ""; name = ""; numTestStu = 0; }
 	~Subject() { };
 
 	//Copy constructor
@@ -18,14 +18,17 @@ public:
 
 	//Functions
 	string getId() const;
-	void setId(string id);
-
 	string getName() const;
+	int getNumTested() const { return numTestStu; }
+
+	void setId(string id);
 	void setName(string name);
+	void setNumTested(int _num) { this->numTestStu = _num; }
 
 private:
-	string id = "";	//max id contain 15 characters
-	string name = "";
+	string id;	//max id contain 15 characters
+	string name;
+	int numTestStu;	//Dung de dem so luong sinh vien da thi mon hoc nay
 };
 
 

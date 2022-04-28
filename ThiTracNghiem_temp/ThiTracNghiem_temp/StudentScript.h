@@ -11,7 +11,7 @@ private:
 	string firstName;	//ten chinh
 	char gender;		//M: con trai, F: con gai, U: khong xac dinh
 	string password;	//mat khau
-	ListMark* listMark;	// con tro tro den danh sanh diem cua 1 sinh vien
+	ListMark* listMark;	//con tro tro den danh sanh diem cua 1 sinh vien
 
 public:
 #pragma region Getter
@@ -20,7 +20,7 @@ public:
 	string getFirstName() const;
 	char getGender() const;
 	string getPassword() const;
-	ListMark* getList() const;
+	ListMark* getListMark() const;
 #pragma endregion
 
 #pragma region Setter
@@ -29,7 +29,7 @@ public:
 	void setFirstName(string first_name);
 	void setGender(char gender);
 	void setPassword(string password);
-	void setList(ListMark* other_listMark);
+	void setListMark(ListMark* other_listMark);
 #pragma endregion
 	
 #pragma region  Constructor/DeConstructor
@@ -50,6 +50,8 @@ public:
 	
 	int AddStudent(Student);
 	Node<Student>* GetStudentHead();
+	int GetSize();
+	void ClearList();
 
 	template <typename S>
 	int DeleteStudentWith(S cmp, bool clearAll)  // delete base on idStudent

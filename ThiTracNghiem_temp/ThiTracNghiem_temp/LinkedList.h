@@ -133,6 +133,18 @@ public:
 		return head;
 	}
 
+	void ClearList()
+	{
+		Node<T>* q;
+		Node<T>* p = head;
+		while (p != nullptr)
+		{
+			q = p;
+			p = p->next;
+			delete q;
+		}
+	}
+
 	template<typename S>
 	int DeleteBase(S cmp, bool delAll)
 	{

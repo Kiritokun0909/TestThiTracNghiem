@@ -64,7 +64,7 @@
       <Filter>Header Files\myLibrary</Filter>
     </ClInclude>
     <ClInclude Include="FileManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FileManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

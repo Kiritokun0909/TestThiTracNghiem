@@ -55,7 +55,7 @@ Subject* ListSubject::SearchSubject(string s, ListSubject* obj, bool(ListSubject
 
 void ListSubject::ClearList()
 {
-	for (int i = 0; i < MAX_LIST; i++) delete nodes[i];
+	for (int i = 0; i < size; i++) delete nodes[i];
 	size = 0;
 }
 
@@ -66,14 +66,20 @@ int ListSubject::StringCompare(const string& s1, const string& s2)
 	//			-1 means s1 < s2.
 
 	int len1 = s1.size(), len2 = s2.size();
-	for (int i = 0; i < len1 && i < len2; i++)
+	for (int i = 0; i < 7; i++)	//So sanh 7 ky tu dau cua ma lop
+	{
+		if (s1[i] < s2[i]) return -1;	//First character that s1 < s2
+		else if (s1[i] > s2[i]) return 1;	//First character that s1 > s2
+	}
+
+	if (len1 < len2) return -1;	//s1 < s2: abc < abcd
+	for (int i = 7; i < len1 && i < len2; i++)
 	{
 		if (s1[i] < s2[i]) return -1;	//First character that s1 < s2
 		else if (s1[i] > s2[i]) return 1;	//First character that s1 > s2
 	}
 
 	if (len1 == len2) return 0;	//s1 == s2: abc == abc
-	if (len1 < len2) return -1;	//s1 < s2: abc < abcd
 	return 1;	//s1 > s2: abcd > abc
 }
 int ListSubject::AddSubject(Subject new_sub)
@@ -117,20 +123,23 @@ int ListSubject::AddSubjectAt(Subject new_sub, int pos)
 
 	if (size == 0) pos = size; //Mang rong
 	else if (pos > size) pos = size; //Neu pos > size thi them vao cuoi
+
 	for (int i = size; i > pos; i--) nodes[i] = nodes[i - 1];
 	nodes[pos] = new Subject(new_sub);
 	size++;
 	//Them thanh cong
 	return 1;
 }
-int ListSubject::DelSubjectAt(int pos)
+int ListSubject::DelSubjectAt(int index)
 {
 	//Khong the xoa vi danh sach rong
 	//Hoac do vi tri muon xoa nhap sai
-	if (pos < 0 || pos >= size) return 0;
+	if (index < 0 || index >= size) return 0;
 
-	for (int i = pos; i < size; i++) nodes[i] = nodes[i + 1];
-	//nodes[size - 1] = nullptr;	//Khong can vi mang con tro tu dong lam
+	delete nodes[index];
+	for (int i = index; i < size; i++) nodes[i] = nodes[i + 1];
+
+	if(size > 1) nodes[size - 1] = nullptr;	//sau khi xoa xong thi phan tu cuoi tro ve null ptr
 	size--;
 	//Xoa thanh cong
 	return 1;

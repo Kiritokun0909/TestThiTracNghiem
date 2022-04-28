@@ -8,29 +8,26 @@ void Class::setAll(string id, string name)
 }
 
 //Cau truc danh sach lop
-int ListClass::GetSize() const
+Class* ListClass::GetNode(int index)
 {
-	return size;
-}
-
-Class* ListClass::GetNode(int pos)
-{
-	if (pos < 0 || pos >= size) return nullptr;
-	return &nodes[pos];
+	if (index < 0 || index >= size) return nullptr;
+	return &nodes[index];
 }
 
 
-bool ListClass::SearchByID(int pos, string id) {
-	return nodes[pos].getId() == id;
+bool ListClass::SearchByID(int index, string id) {
+	return nodes[index].getId() == id;
 }
-bool ListClass::SearchByName(int pos, string name) {
-	return nodes[pos].getName() == name;
+bool ListClass::SearchByName(int index, string name) {
+	return nodes[index].getName() == name;
 }
-Class* ListClass::SearchClass(string s, ListClass* obj, bool(ListClass::* cmp)(int, string))
+Class* ListClass::SearchClass(string str, ListClass* obj, bool(ListClass::* cmp)(int, string))
 {
 	//Tim kiem tuyen tinh (O(n))
 	for (int i = 0; i < size; i++)
-		if ((obj->*cmp)(i, s)) { return &nodes[i]; }
+		if ((obj->*cmp)(i, str)) { return &nodes[i]; }
+
+	//Tra ve rong neu khong tim thay 
 	return nullptr;
 }
 
@@ -42,26 +39,34 @@ int ListClass::StringCompare(const string& s1, const string& s2)
 	//			-1 means s1 < s2.
 
 	int len1 = s1.size(), len2 = s2.size();
-	for (int i = 0; i < len1 && i < len2; i++)
+	for (int i = 0; i < 7; i++)	//So sanh 7 ky tu dau cua ma lop
+	{
+		if (s1[i] < s2[i]) return -1;	//First character that s1 < s2
+		else if (s1[i] > s2[i]) return 1;	//First character that s1 > s2
+	}
+
+	if (len1 < len2) return -1;	//s1 < s2: abc < abcd
+	for (int i = 7; i < len1 && i < len2; i++)
 	{
 		if (s1[i] < s2[i]) return -1;	//First character that s1 < s2
 		else if (s1[i] > s2[i]) return 1;	//First character that s1 > s2
 	}
 
 	if (len1 == len2) return 0;	//s1 == s2: abc == abc
-	if (len1 < len2) return -1;	//s1 < s2: abc < abcd
 	return 1;	//s1 > s2: abcd > abc
 }
 int ListClass::AddClass(Class c)
 {
 	//return: 	1 them thanh cong, 
-	//			0 them khong thanh cong do bi trung, 
+	//			0 them khong thanh cong, 
 	//			-1 them khong thanh cong do mang da day.
 	
 	if (size == MAX_LIST) return -1;
 
 	//Tim vi tri thich hop de them vao
 	string id = c.getId();
+	if (id.size() <= 7) return 0;	// D20CQCN(7 ky tu dinh danh) 01(ma so lop)
+
 	int pos = size, cmp;
 	for (int i = 0; i < size; i++)
 	{
@@ -71,7 +76,7 @@ int ListClass::AddClass(Class c)
 			pos = i;
 			break;
 		}
-		else if (cmp == 0)
+		else if (cmp == 0)	//ID lop bi trung khong them duoc
 			return 0;
 	}
 
